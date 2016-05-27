@@ -1,0 +1,48 @@
+if [ $1 == exec ]
+then
+
+#NODE
+echo NODE
+echo spawning graphs...
+
+SpawnNGraphs 8 16008 45 ../expData/nodeExp/graphs 16
+
+echo spawning waypoints...
+
+SpawnNWayPoints 8 16008 20 ../expData/nodeExp/waypoints 0 16
+
+#EDGE
+echo EDGE
+echo spawning graphs...
+
+SpawnEGraphs 8 16008 45 ../expData/edgeExp/graphs 16
+
+echo spawning waypoints...
+
+wayPointGen 45 20 ../expData/edgeExp/waypoints/expWPoint.txt 0
+
+#WAYPOINT
+echo WAYPOINT
+echo spawning graphs...
+
+GraphGen 45 40 ../expData/waypointExp/graphs/expGraph.txt
+
+echo spawning waypoints...
+
+SpawnWayPoints 45 8 16008 ../expData/waypointExp/waypoints 0 16
+
+fi
+
+if [ $1 == clear ]
+then
+
+rm -f ../expData/nodeExp/graphs/*
+rm -f ../expData/nodeExp/waypoints/*
+
+rm -f ../expData/edgeExp/graphs/*
+rm -f ../expData/edgeExp/waypoints/*
+
+rm -f ../expData/waypointExp/graphs/*
+rm -f ../expData/waypointExp/waypoints/*
+
+fi

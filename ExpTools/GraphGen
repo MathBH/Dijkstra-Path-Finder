@@ -1,0 +1,16 @@
+NUMNODES=$1
+NUMEDGES=$2
+FILENAME=$3
+
+echo $NUMNODES >> $FILENAME
+echo $NUMEDGES >> $FILENAME
+while (( NUMEDGES > 0 ))
+	do
+		NODE1=$(( RANDOM % NUMNODES ))
+		NODE2=$(( RANDOM % NUMNODES ))
+		WEIGHT=$(python -c 'import random; num=random.uniform(0.10,1.0);print("%.2f" % num)')
+		
+		echo $NODE1 $NODE2 $WEIGHT >> $FILENAME
+		
+		(( NUMEDGES -- ))
+	done

@@ -1,0 +1,41 @@
+GRAPHDIR=$1
+WPDIR=$2
+FILENAME=$3
+IMPVAR=$4
+NUMREP=$5
+
+RAWFILE=${FILENAME}.raw.txt
+DATAFILE=${FILENAME}.data.txt
+
+echo RAWFILE $FILENAME > $RAWFILE
+echo -e "=================\n\n" >> $RAWFILE
+
+if [ -f $DATAFILE ]
+	then
+		echo data file exists
+	exit 1
+fi
+
+for graph in $GRAPHDIR/*
+	do
+		echo ${graph}...
+		for waypoint in $WPDIR/*
+			do
+
+				echo ${waypoint}...
+				OUTPUT=$(java TestTool $graph $waypoint $NUMREP)
+
+				echo ========================================= >> $RAWFILE
+				echo -e "GRAPHFILE: $graph\nWAYPOINTFILE: $waypoint" >> $RAWFILE
+				echo ---------------------------------------- >> $RAWFILE
+				echo "$OUTPUT" >> $RAWFILE
+				echo -e "=========================================\n" >> $RAWFILE
+
+				RUNTIME=$(echo "$OUTPUT" | sed -n /'Run Time: '/s/'Run Time: '/""/p)
+				TAGPATH=$(eval "echo $"$IMPVAR"")
+				TAG=${TAGPATH##*/}
+
+				echo $TAG,$RUNTIME >> $DATAFILE
+
+			done
+	done
