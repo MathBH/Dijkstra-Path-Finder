@@ -60,6 +60,9 @@ USE:
 				5
 				0 7 4 10 3
 
+	Graph files and waypoint files can be found for testing in 
+	respective folders in this repository.
+
 CREDITS:
 
 	"make clean" and "make it" - Dr. Hamilton Wright
